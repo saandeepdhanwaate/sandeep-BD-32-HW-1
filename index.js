@@ -33,15 +33,20 @@ let people = [
 ];
 
 // username/find
+
 function findUserName(user, username) {
-  return user.username === username;
+  return user.usernam === username;
 }
 
 app.get("/username/find/:username", (req, res) => {
   let username = req.params.username;
   let result = users.find((user) => findUserName(user, username));
 
-  res.json(result);
+  if (result) {
+    res.json({ result: "Username is not avaliable" });
+  } else {
+    res.json({ result: "Username is  avaliable" });
+  }
 });
 
 // credit-cards/find
@@ -81,7 +86,7 @@ function findPeopleSsn(ele, ssn) {
   return ele.ssn === ssn;
 }
 app.get("/ssn/find", (req, res) => {
-  let ssn = req.query.ssn
+  let ssn = req.query.ssn;
   let result = people.find((ele) => findPeopleSsn(ele, ssn));
   res.json(result);
 });
